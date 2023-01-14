@@ -55,3 +55,18 @@
       tag_list: ['master']
       run_untagged: false
       locked: true
+  register: runner_output
+
+- name: "Update gitlab-runner config"
+  shell: |
+      cat <<EOT >> /etc/gitlab-runner/config.toml 
+      [[runners]]
+        name = "img"
+        id = {{ project }}
+        url = "{{ api_url }}/"
+        token = "{{ runner_output.runner.token }}"
+        executor = "shell"
+        [runners.custom_build_dir]
+        [runners.cache]
+      EOT
+  when: runner_output.runner.token is defined
