@@ -1,0 +1,58 @@
+---
+-   name: Add GPG key
+    apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+        validate_certs: no
+
+-   name: Verify fingerprint
+    apt_key:
+        id: 0EBFCD88
+        state: present
+
+-   name: Get DEB architecture
+    shell: dpkg --print-architecture
+    register: deb_architecture
+    changed_when: false
+
+-   name: Set up the repository
+    apt_repository:
+        repo: deb [arch={{ deb_architecture.stdout }}] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+        state: present
+        filename: docker
+        update_cache: yes
+
+-   name: Install Docker
+    apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+    notify: Start docker on boot
+
+-   name: Install Docker Compose
+    apt:
+        name: docker-compose-plugin
+        state: present
+        update_cache: yes
+
+-   name: Copy docker-compose to /usr/local/bin directory
+    copy:
+        src: /usr/libexec/docker/cli-plugins/docker-compose
+        remote_src: true
+        dest: /usr/local/bin/docker-compose
+        mode: u=rx,g=rx,o=rx
+
+-   name: Set periodic Docker prune
+    cron:
+        name: docker-prune
+        job: 'docker system prune -af --filter "until=48h"'
+        minute: '0'
+        hour: '1'
+
+-   name: Remove useless packages
+    apt:
+        autoclean: yes
+
+-   name: Remove useless dependencies
+    apt:
+        autoremove: yes

@@ -1,0 +1,7 @@
+---
+-   name: Prepare server
+    hosts: prod
+    remote_user: root
+    roles:
+        - dependencies
+        - docker

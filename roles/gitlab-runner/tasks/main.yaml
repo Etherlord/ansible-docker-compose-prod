@@ -1,0 +1,57 @@
+---
+-   name: Install dependencies
+    apt:
+        name:
+            - python3-pip
+        state: present
+        update_cache: yes
+
+-   name: Install python-gitlab
+    pip:
+        name: python-gitlab
+        state: present
+
+-   name: Add GPG key
+    apt_key:
+      url: https://packages.gitlab.com/runner/gitlab-runner/gpgkey
+      state: present
+
+-   name: Verify fingerprint
+    apt_key:
+      id: 51312F3F
+      state: present
+
+-   name: Set up the repository
+    apt_repository:
+      repo: deb https://packages.gitlab.com/runner/gitlab-runner/debian/ {{ ansible_distribution_release }} main
+      state: present
+      filename: gitlab
+      update_cache: yes
+
+-   name: Install Gitlab Runner
+    apt:
+      name: gitlab-runner
+      state: present
+      update_cache: yes
+    notify: Start gitlab runner on boot
+
+-   name: Remove useless packages
+    apt:
+      autoclean: yes
+
+-   name: Remove useless dependencies
+    apt:
+      autoremove: yes
+
+- name: "Register runner"
+  community.general.gitlab_runner:
+      api_url: "{{ api_url }}"
+      api_token: "{{ api_token }}"
+      registration_token: "{{ registration_token }}"
+      description: "{{ description }}"
+      project: "{{ project }}"
+      state: present
+      active: true
+      tag_list: ['master']
+      run_untagged: false
+      locked: true

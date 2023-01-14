@@ -1,0 +1,6 @@
+---
+api_url: https://gitlab.example.com
+api_token: token
+registration_token: token
+description: Some gitlab runner
+project: MyAwesomeProjectID

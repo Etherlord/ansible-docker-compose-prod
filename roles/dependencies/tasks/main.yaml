@@ -1,0 +1,10 @@
+---
+-   name: Install common dependencies
+    apt:
+        name:
+            - apt-transport-https
+            - ca-certificates
+            - software-properties-common
+            - gnupg
+        state: present
+        update_cache: yes
