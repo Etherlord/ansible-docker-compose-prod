@@ -43,6 +43,12 @@
     apt:
       autoremove: yes
 
+-   name: Add gitlab-runner user to docker group
+    user:
+      name: gitlab-runner
+      append: yes
+      groups: docker
+
 - name: "Register runner"
   community.general.gitlab_runner:
       api_url: "{{ api_url }}"
