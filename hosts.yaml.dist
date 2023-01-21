@@ -10,3 +10,4 @@ all:
                     ansible_port: 22
     vars:
         username: user
+        ssh_public_key_path: /home/user/.ssh/id_rsa.pub

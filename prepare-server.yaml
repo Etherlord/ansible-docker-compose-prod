@@ -6,3 +6,4 @@
         - common-dependencies
         - docker
         - add-user
+        - ssh-key
