@@ -1,0 +1,8 @@
+---
+-   name: Add non root user to server
+    user:
+      name: '{{ username }}'
+      password: '*'
+      shell: /bin/bash
+      append: yes
+      groups: sudo,docker

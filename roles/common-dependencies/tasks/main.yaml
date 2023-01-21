@@ -6,5 +6,6 @@
             - ca-certificates
             - software-properties-common
             - gnupg
+            - sudo
         state: present
         update_cache: yes
