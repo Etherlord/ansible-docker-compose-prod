@@ -7,3 +7,4 @@
         - docker
         - add-user
         - ssh-key
+        - sshd-reconfigure

@@ -1,0 +1,14 @@
+---
+-   name: Standard port change
+    lineinfile:
+      path: /etc/ssh/sshd_config
+      search_string: "Port 22"
+      line: "Port {{ ssh_port }}"
+
+-   name: Disable root login
+    lineinfile:
+      path: /etc/ssh/sshd_config
+      search_string: "PermitRootLogin"
+      line: "PermitRootLogin no"
+      firstmatch: true
+    notify: Restart ssh server
