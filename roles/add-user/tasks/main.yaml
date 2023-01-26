@@ -6,3 +6,9 @@
       shell: /bin/bash
       append: yes
       groups: sudo,docker
+
+-   name: Allow sudo without password
+    lineinfile:
+      path: /etc/sudoers
+      search_string: "%sudo"
+      line: "%sudo   ALL=(ALL:ALL) NOPASSWD:ALL"
