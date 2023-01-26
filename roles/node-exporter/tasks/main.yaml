@@ -1,0 +1,8 @@
+---
+-   name: Install node exporter
+    apt:
+      name:
+        - prometheus-node-exporter
+      state: present
+      update_cache: yes
+    notify: Start node exporter on boot
