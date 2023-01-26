@@ -7,4 +7,5 @@
         - docker
         - add-user
         - ssh-key
+        - timezone
         - sshd-reconfigure
