@@ -7,5 +7,7 @@
             - software-properties-common
             - gnupg
             - sudo
+            - ntp
         state: present
         update_cache: yes
+    notify: Start ntp on boot
