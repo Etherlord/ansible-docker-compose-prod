@@ -13,3 +13,5 @@ all:
         ssh_public_key_path: /home/user/.ssh/id_rsa.pub
         ssh_port: 2222
         timezone: Europe/Moscow
+        swap_file_path: /swapfile
+        swap_size: 8G

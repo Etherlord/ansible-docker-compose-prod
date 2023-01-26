@@ -8,4 +8,5 @@
         - add-user
         - ssh-key
         - timezone
+        - swap
         - sshd-reconfigure
