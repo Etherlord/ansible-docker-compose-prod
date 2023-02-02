@@ -10,3 +10,4 @@
         - timezone
         - swap
         - sshd-reconfigure
+        - iptables

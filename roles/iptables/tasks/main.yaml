@@ -1,0 +1,76 @@
+---
+-   name: Allow ssh dport
+    iptables:
+      chain: INPUT
+      protocol: tcp
+      in_interface: "{{ ansible_default_ipv4.interface }}"
+      destination_port: "{{ ssh_port }}"
+      jump: ACCEPT
+-   name: Allow ssh sport
+    iptables:
+      chain: INPUT
+      protocol: tcp
+      in_interface: "{{ ansible_default_ipv4.interface }}"
+      source_port: "{{ ssh_port }}"
+      jump: ACCEPT
+-   name: Allow http dport
+    iptables:
+      chain: INPUT
+      protocol: tcp
+      in_interface: "{{ ansible_default_ipv4.interface }}"
+      destination_port: 80
+      jump: ACCEPT
+-   name: Allow http sport
+    iptables:
+      chain: INPUT
+      protocol: tcp
+      in_interface: "{{ ansible_default_ipv4.interface }}"
+      source_port: 80
+      jump: ACCEPT
+-   name: Allow https dport
+    iptables:
+      chain: INPUT
+      protocol: tcp
+      in_interface: "{{ ansible_default_ipv4.interface }}"
+      destination_port: 443
+      jump: ACCEPT
+-   name: Allow https sport
+    iptables:
+      chain: INPUT
+      protocol: tcp
+      in_interface: "{{ ansible_default_ipv4.interface }}"
+      source_port: 443
+      jump: ACCEPT
+-   name: Allow smtps sport
+    iptables:
+      chain: INPUT
+      protocol: tcp
+      in_interface: "{{ ansible_default_ipv4.interface }}"
+      source_port: 465
+      jump: ACCEPT
+-   name: Allow dns sport
+    iptables:
+      chain: INPUT
+      protocol: udp
+      in_interface: "{{ ansible_default_ipv4.interface }}"
+      source_port: 53
+      jump: ACCEPT
+-   name: Allow related and established connections
+    iptables:
+      chain: INPUT
+      protocol: tcp
+      in_interface: "{{ ansible_default_ipv4.interface }}"
+      ctstate: ESTABLISHED,RELATED
+      jump: ACCEPT
+-   name: Deny all other tcp packets
+    iptables:
+      chain: INPUT
+      protocol: tcp
+      in_interface: "{{ ansible_default_ipv4.interface }}"
+      jump: DROP
+-   name: Deny all udp packets
+    iptables:
+      chain: INPUT
+      protocol: udp
+      in_interface: "{{ ansible_default_ipv4.interface }}"
+      jump: DROP
