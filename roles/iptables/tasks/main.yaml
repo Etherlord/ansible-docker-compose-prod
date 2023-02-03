@@ -74,3 +74,34 @@
       protocol: udp
       in_interface: "{{ ansible_default_ipv4.interface }}"
       jump: DROP
+-   name: Check if iptables.sh file exists
+    stat:
+      path: /etc/iptables/iptables.sh
+    register: iptables_file_check
+-   name: Creates iptables directory
+    file:
+      path: /etc/iptables
+      state: directory
+    when: not iptables_file_check.stat.exists
+-   name: iptables script to run on boot
+    shell: |
+      cat <<EOT >> /etc/iptables/iptables.sh 
+      #!/bin/bash
+      /usr/sbin/iptables -A INPUT -p tcp -i {{ ansible_default_ipv4.interface }} --dport {{ ssh_port }} -j ACCEPT
+      /usr/sbin/iptables -A INPUT -p tcp -i {{ ansible_default_ipv4.interface }} --sport {{ ssh_port }} -j ACCEPT
+      /usr/sbin/iptables -A INPUT -p tcp -i {{ ansible_default_ipv4.interface }} --dport 80 -j ACCEPT
+      /usr/sbin/iptables -A INPUT -p tcp -i {{ ansible_default_ipv4.interface }} --sport 80 -j ACCEPT
+      /usr/sbin/iptables -A INPUT -p tcp -i {{ ansible_default_ipv4.interface }} --dport 443 -j ACCEPT
+      /usr/sbin/iptables -A INPUT -p tcp -i {{ ansible_default_ipv4.interface }} --sport 443 -j ACCEPT
+      /usr/sbin/iptables -A INPUT -p tcp -i {{ ansible_default_ipv4.interface }} --sport 465 -j ACCEPT
+      /usr/sbin/iptables -A INPUT -p udp -i {{ ansible_default_ipv4.interface }} --sport 53 -j ACCEPT
+      /usr/sbin/iptables -A INPUT -p tcp -i {{ ansible_default_ipv4.interface }} -m state --state ESTABLISHED,RELATED -j ACCEPT
+      /usr/sbin/iptables -A INPUT -p udp -i {{ ansible_default_ipv4.interface }} -j DROP
+      /usr/sbin/iptables -A INPUT -p tcp -i {{ ansible_default_ipv4.interface }} -j DROP
+      EOT
+    when: not iptables_file_check.stat.exists
+-   name: Apply iptables rules on boot
+    cron:
+      name: iptables
+      job: 'sh /etc/iptables/iptables.sh'
+      special_time: reboot
