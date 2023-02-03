@@ -1,6 +1,6 @@
 ---
 -   name: Start gitlab runner on boot
     systemd:
-      name: gitlab-runner
-      state: started
-      enabled: yes
+        name: gitlab-runner
+        state: started
+        enabled: yes

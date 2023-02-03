@@ -1,6 +1,6 @@
 ---
 -   name: Add user ssh key to authorized_keys
     authorized_key:
-      user: "{{ username }}"
-      state: present
-      key: "{{ lookup('file', ssh_public_key_path) }}"
+        user: "{{ username }}"
+        state: present
+        key: "{{ lookup('file', ssh_public_key_path) }}"

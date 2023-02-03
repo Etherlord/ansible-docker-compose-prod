@@ -3,4 +3,4 @@
     hosts: prod
     remote_user: root
     roles:
-      - node-exporter
+        - node-exporter

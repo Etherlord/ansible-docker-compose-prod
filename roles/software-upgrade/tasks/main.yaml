@@ -1,12 +1,15 @@
 -   name: Update APT package cache
     apt:
-      update_cache: yes
+        update_cache: yes
+
 -   name: Upgrade APT to the latest packages
     apt:
-      upgrade: dist
+        upgrade: dist
+
 -   name: Remove useless packages
     apt:
-      autoclean: yes
+        autoclean: yes
+
 -   name: Remove useless dependencies
     apt:
-      autoremove: yes
+        autoremove: yes

@@ -1,6 +1,6 @@
 ---
 -   name: Restart ssh server
     systemd:
-      name: ssh
-      state: restarted
-      enabled: yes
+        name: ssh
+        state: restarted
+        enabled: yes

@@ -1,6 +1,6 @@
 ---
 -   name: Start node exporter on boot
     systemd:
-      name: prometheus-node-exporter
-      state: started
-      enabled: yes
+        name: prometheus-node-exporter
+        state: started
+        enabled: yes
