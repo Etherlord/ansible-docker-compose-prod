@@ -48,11 +48,3 @@
         job: 'docker system prune -af --filter "until=48h"'
         minute: '0'
         hour: '1'
-
--   name: Remove useless packages
-    apt:
-        autoclean: yes
-
--   name: Remove useless dependencies
-    apt:
-        autoremove: yes

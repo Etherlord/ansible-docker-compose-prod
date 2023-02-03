@@ -35,14 +35,6 @@
       update_cache: yes
     notify: Start gitlab runner on boot
 
--   name: Remove useless packages
-    apt:
-      autoclean: yes
-
--   name: Remove useless dependencies
-    apt:
-      autoremove: yes
-
 -   name: Add gitlab-runner user to docker group
     user:
       name: gitlab-runner
