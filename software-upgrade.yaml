@@ -1,0 +1,6 @@
+---
+-   name: Upgrade software on server
+    hosts: prod
+    remote_user: root
+    roles:
+      - software-upgrade
