@@ -35,13 +35,6 @@
         state: present
         update_cache: yes
 
--   name: Copy docker-compose to /usr/local/bin directory
-    copy:
-        src: /usr/libexec/docker/cli-plugins/docker-compose
-        remote_src: true
-        dest: /usr/local/bin/docker-compose
-        mode: u=rx,g=rx,o=rx
-
 -   name: Set periodic Docker prune
     cron:
         name: docker-prune
