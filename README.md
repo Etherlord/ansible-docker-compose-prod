@@ -9,24 +9,17 @@
     make prod
     ```
 4. **Опционально**
-   * Создайте в папке `roles/gitlab-runner/vars` файл `vars.yaml` по примеру из `vars.yaml.dist`
-   * Для установки и регистрации gitlab-runner запустите команду
-      ```shell script
-      make gitlab-runner
-      ```
-
-5. **Опционально**
    * Для установки prometheus node exporter запустите команду
      ```shell script
      make node-exporter
      ```
 
-6. После завершения работы в `hosts.yaml`:
+5. После завершения работы в `hosts.yaml`:
    * Поменяйте пользователя на того, что указали в переменной `username`
    * Порт ssh на тот, что указали в переменной `ssh_port`
    * Добавьте строчку `ansible_become: yes` после `ansible_user`
 
-7. Для обновления ПО на сервере запустите:
+6. Для обновления ПО на сервере запустите:
      ```shell script
      make software-upgrade
      ```

@@ -1,9 +1,0 @@
----
--   name: Install and register gitlab runner
-    hosts: prod
-    remote_user: root
-    roles:
-        - dependencies
-        - gitlab-runner
-    vars_files:
-        - roles/gitlab-runner/vars/vars.yaml
